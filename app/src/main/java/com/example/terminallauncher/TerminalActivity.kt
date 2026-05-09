@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ScrollView
@@ -16,10 +15,11 @@ class TerminalActivity : Activity() {
     private lateinit var outputText: TextView
     private lateinit var inputField: EditText
     private lateinit var promptLabel: TextView
+    private lateinit var submitButton: TextView
     private lateinit var scrollView: ScrollView
 
     // --- USER DATA STORAGE ---
-    // SharedPreferences is Android's built-in key-value string storage.
+    // SharedPreferences is Android built-in key-value string storage.
     // Data written here survives the app being closed.
     private lateinit var prefs: SharedPreferences
 
@@ -35,10 +35,11 @@ class TerminalActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_terminal)
 
-        outputText  = findViewById(R.id.outputText)
-        inputField  = findViewById(R.id.inputField)
-        promptLabel = findViewById(R.id.promptLabel)
-        scrollView  = findViewById(R.id.scrollView)
+        outputText   = findViewById(R.id.outputText)
+        inputField   = findViewById(R.id.inputField)
+        promptLabel  = findViewById(R.id.promptLabel)
+        submitButton = findViewById(R.id.submitButton)
+        scrollView   = findViewById(R.id.scrollView)
 
         prefs = getSharedPreferences("user_data", MODE_PRIVATE)
         applyStoredSettings()
@@ -49,16 +50,12 @@ class TerminalActivity : Activity() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(inputField, InputMethodManager.SHOW_IMPLICIT)
 
-        inputField.setOnKeyListener { _, keyCode, event ->
-            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                val input = inputField.text.toString().trim()
-                if (input.isNotEmpty()) {
-                    handleCommand(input)
-                    inputField.setText("")
-                }
-                true
-            } else {
-                false
+        // Submit on button tap — no keyboard dependency
+        submitButton.setOnClickListener {
+            val input = inputField.text.toString().trim()
+            if (input.isNotEmpty()) {
+                handleCommand(input)
+                inputField.setText("")
             }
         }
     }
@@ -149,7 +146,7 @@ class TerminalActivity : Activity() {
 
             "-suffering" -> {
                 // The rant. Do not touch.
-                appendOutput("if youre reading this, sincerely, i hate you. you are the very thing that i despise. i built this abode so that i could live in peace and you must waltz through the wjndow? why do you use this? Why must you read thia? If there is a day thatfor some magical purpose obviously not meant to blanket the greed for income of currency, big corp decides to turn this into a \"decent\" app of their own, i have one thing to say: screw you, infertile almagamation of inbreeding. Etch my words and take them to the grave of your subconscioua. This thing has no intent of adaptation or to work in a device of youra which i never knew. Get some help. Use niagara launcher or something. If youre going to use this and you have the heart to, tell me your issues through the github thing or whatever so i can laugh at you properly. Love yourself rn. Upd: Reading this with a clearer mind, ive returned to say: ur beautiful, keep loviny yourself")
+                appendOutput("if youre reading this, sincerely, i hate you. you are the very thing that i despise. i built this abode so that i could live in peace and you must waltz through the wjndow? why do you use this? Why must you read thia? If there is a day thatfor some magical purpose obviously not meant to blanket the greed for income of currency, big corp decides to turn this into a \"decent\" app of their own, i have one thing to say: screw you, infertile almagamation of inbreeding. Etch my words and take them to the grave of your subconscioua. This thing has no intent of adaptation or to work in a device of youra which i never knew. Get some help. Use niagara launcher or something. If youre going to use this and you have the heart to, tell me your issues through the github thing or whatever so i can laugh at you properly. Love yourself rn.")
             }
 
             else -> {

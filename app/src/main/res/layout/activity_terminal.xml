@@ -61,15 +61,15 @@
             android:maxLines="1"
             android:singleLine="true" />
 
-        <!-- Submit button — works regardless of keyboard -->
         <TextView
             android:id="@+id/submitButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
             android:textColor="#00FF41"
-            android:textSize="18sp"
-            android:paddingStart="12dp"
+            android:textSize="26sp"
+            android:paddingStart="16dp"
+            android:paddingEnd="4dp"
             android:text="↵" />
 
     </LinearLayout>

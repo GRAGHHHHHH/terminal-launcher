@@ -10,3 +10,5 @@ Swipe up anywhere to open the command palette.
 - `help` — shows available commands
 - Back button — returns to home
   
+## Developer note
+Even though i had no intention to make this app compatible with other devices, the pure minimalism of this app led it to become widely compatible, somehow. I suppose it can handle Android 8+. 

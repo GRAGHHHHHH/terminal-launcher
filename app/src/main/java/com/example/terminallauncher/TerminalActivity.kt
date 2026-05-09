@@ -50,7 +50,6 @@ class TerminalActivity : Activity() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(inputField, InputMethodManager.SHOW_IMPLICIT)
 
-        // Submit on button tap — no keyboard dependency
         submitButton.setOnClickListener {
             val input = inputField.text.toString().trim()
             if (input.isNotEmpty()) {
@@ -144,11 +143,6 @@ class TerminalActivity : Activity() {
                 }
             }
 
-            "-suffering" -> {
-                // The rant. Do not touch.
-                appendOutput("if youre reading this, sincerely, i hate you. you are the very thing that i despise. i built this abode so that i could live in peace and you must waltz through the wjndow? why do you use this? Why must you read thia? If there is a day thatfor some magical purpose obviously not meant to blanket the greed for income of currency, big corp decides to turn this into a \"decent\" app of their own, i have one thing to say: screw you, infertile almagamation of inbreeding. Etch my words and take them to the grave of your subconscioua. This thing has no intent of adaptation or to work in a device of youra which i never knew. Get some help. Use niagara launcher or something. If youre going to use this and you have the heart to, tell me your issues through the github thing or whatever so i can laugh at you properly. Love yourself rn.")
-            }
-
             else -> {
                 appendOutput("Unknown flag: $flag")
                 appendOutput("Run 'settings help' for available flags.")
@@ -184,7 +178,6 @@ class TerminalActivity : Activity() {
         appendOutput("  -color [color]    — change output text color")
         appendOutput("                      options: white, green, red, cyan, yellow,")
         appendOutput("                               orange, magenta, or a hex code")
-        appendOutput("  -suffering        — you probably shouldn't")
     }
 
     private fun listApps() {
